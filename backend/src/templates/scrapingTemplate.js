@@ -2,8 +2,6 @@
  * Gera o JSON do workflow n8n com correção de rastreamento de metadados,
  * limpeza inteligente de nomes e categorização de fontes de busca.
  */
-const { randomUUID } = require('crypto');
-
 function buildScrapingWorkflow(config) {
   const {
     nicheId,
@@ -286,7 +284,7 @@ function buildScrapingWorkflow(config) {
       id: 'trigger',
       name: 'Schedule Trigger',
       type: 'n8n-nodes-base.scheduleTrigger',
-      typeVersion: 1.2,
+      typeVersion: 1.3,
       position: [0, 0],
       parameters: { rule: { interval: [{ field: 'hours', hoursInterval: scheduleHours }] } },
     },
@@ -294,7 +292,6 @@ function buildScrapingWorkflow(config) {
       id: 'webhook',
       name: 'Webhook',
       type: 'n8n-nodes-base.webhook',
-      webhookId: randomUUID(),
       typeVersion: 1,
       position: [0, 150],
       parameters: { httpMethod: 'GET', path: `raspagem-${nicheId}`, responseMode: 'onReceived', options: {} },
@@ -311,7 +308,7 @@ function buildScrapingWorkflow(config) {
       id: 'busca_robo_search',
       name: 'Busca Robô Python (Search)',
       type: 'n8n-nodes-base.httpRequest',
-      typeVersion: 4.2,
+      typeVersion: 4.4,
       position: [440, -200],
       onError: 'continueErrorOutput',
       parameters: {
@@ -328,7 +325,7 @@ function buildScrapingWorkflow(config) {
       id: 'busca_robo_maps',
       name: 'Busca Robô Python (Maps)',
       type: 'n8n-nodes-base.httpRequest',
-      typeVersion: 4.2,
+      typeVersion: 4.4,
       position: [440, -100],
       onError: 'continueErrorOutput',
       parameters: {
@@ -345,7 +342,7 @@ function buildScrapingWorkflow(config) {
       id: 'busca_serper_search',
       name: 'Busca Serper (Search)',
       type: 'n8n-nodes-base.httpRequest',
-      typeVersion: 4.2,
+      typeVersion: 4.4,
       position: [440, 0],
       onError: 'continueErrorOutput',
       parameters: {
@@ -367,7 +364,7 @@ function buildScrapingWorkflow(config) {
       id: 'busca_serper_maps',
       name: 'Busca Serper (Maps)',
       type: 'n8n-nodes-base.httpRequest',
-      typeVersion: 4.2,
+      typeVersion: 4.4,
       position: [440, 100],
       onError: 'continueErrorOutput',
       parameters: {
@@ -389,7 +386,7 @@ function buildScrapingWorkflow(config) {
       id: 'busca_searxng',
       name: 'Busca SearXNG',
       type: 'n8n-nodes-base.httpRequest',
-      typeVersion: 4.2,
+      typeVersion: 4.4,
       position: [440, 200],
       onError: 'continueErrorOutput',
       parameters: {
@@ -437,7 +434,7 @@ function buildScrapingWorkflow(config) {
       id: 'raspa_html_fonte',
       name: 'Raspa HTML da Fonte',
       type: 'n8n-nodes-base.httpRequest',
-      typeVersion: 4.2,
+      typeVersion: 4.4,
       position: [1140, -100],
       onError: 'continueRegularOutput',
       parameters: {

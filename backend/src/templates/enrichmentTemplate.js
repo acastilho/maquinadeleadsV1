@@ -19,8 +19,6 @@
  * @param {number} config.batchSize
  * @param {string} config.webhookPath
  */
-const { randomUUID } = require('crypto');
-
 function buildEnrichmentWorkflow(config) {
   const {
     nicheId,
@@ -110,12 +108,11 @@ return out;
 
   const nodes = [
     {
-      id: 'trigger', name: 'Schedule Trigger', type: 'n8n-nodes-base.scheduleTrigger', typeVersion: 1.2,
+      id: 'trigger', name: 'Schedule Trigger', type: 'n8n-nodes-base.scheduleTrigger', typeVersion: 1.3,
       position: [0, 0], parameters: { rule: { interval: [{ field: 'hours', hoursInterval: scheduleHours }] } },
     },
     {
       id: 'webhook', name: 'Webhook Trigger', type: 'n8n-nodes-base.webhook', typeVersion: 2,
-      webhookId: randomUUID(),
       position: [0, 200],
       parameters: {
         path: webhookPath || `enriquecimento-${nicheId}`,

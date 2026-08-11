@@ -1,8 +1,6 @@
 /**
  * Gera o JSON do workflow n8n de ENVIO de mensagens WhatsApp para um nicho.
  */
-const { randomUUID } = require('crypto');
-
 function buildSendingWorkflow(config) {
   const {
     nicheId,
@@ -62,7 +60,7 @@ return out;
       id: 'trigger',
       name: 'Schedule Trigger',
       type: 'n8n-nodes-base.scheduleTrigger',
-      typeVersion: 1.2,
+      typeVersion: 1.3,
       position: [0, 0],
       parameters: { rule: { interval: [{ field: 'hours', hoursInterval: scheduleHours }] } },
     },
@@ -70,7 +68,6 @@ return out;
       id: 'webhook',
       name: 'Webhook',
       type: 'n8n-nodes-base.webhook',
-      webhookId: randomUUID(),
       typeVersion: 1,
       position: [0, 150],
       parameters: {

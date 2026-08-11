@@ -1,0 +1,74 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  frontend:
+    name: Frontend
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+      - run: npm run build
+
+  backend:
+    name: Backend
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+      - run: npm ci
+      - name: Validar sintaxe JavaScript
+        run: find src -type f -name '*.js' -print0 | xargs -0 -n1 node --check
+
+  containers:
+    name: Containers de demonstracao
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validar Compose
+        run: docker compose --env-file .env.demo.example -f compose.demo.yml config --quiet
+      - name: Construir aplicacao
+        run: docker compose --env-file .env.demo.example -f compose.demo.yml build backend frontend
+
+  delivery:
+    name: Pacote validado
+    if: github.event_name != 'pull_request'
+    needs: [frontend, backend, containers]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Empacotar commit aprovado
+        run: git archive --format=tar.gz --output maquina-de-leads-demo-${GITHUB_SHA::7}.tar.gz HEAD
+      - uses: actions/upload-artifact@v4
+        with:
+          name: maquina-de-leads-demo-${{ github.sha }}
+          path: maquina-de-leads-demo-*.tar.gz
+          retention-days: 7

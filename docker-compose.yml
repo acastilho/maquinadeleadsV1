@@ -38,7 +38,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?defina POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB:-maquina_de_leads}
     ports:
-      - "127.0.0.1:5433:5432"
+      - "5432:5432"
     networks:
       - maquina-de-leads
     volumes:
