@@ -78,3 +78,14 @@ previamente no n8n (você provavelmente já tem uma, do fluxo original) e você
 só informa o **ID dela** no dashboard, na aba Credenciais → provider
 "Postgres (credencial do n8n)". O backend referencia esse ID nos nodes
 Postgres do workflow gerado.
+
+<!-- COMPROMISSO-GERAL-A-CASTILHO -->
+
+---
+
+## Compromisso Geral
+
+**Sempre na melhor prática. No caminho do bem maior.**
+
+**Ir até o fim sem sair do caminho, seja ele qual for.**
+

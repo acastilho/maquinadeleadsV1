@@ -88,3 +88,14 @@ para esse workflow.
   deixa de funcionar.
 - Os dados persistem nos volumes Docker locais; faca backup antes de qualquer
   limpeza manual de volumes.
+
+<!-- COMPROMISSO-GERAL-A-CASTILHO -->
+
+---
+
+## Compromisso Geral
+
+**Sempre na melhor prática. No caminho do bem maior.**
+
+**Ir até o fim sem sair do caminho, seja ele qual for.**
+

@@ -37,3 +37,14 @@ com segurança e aplica a migration `002_security_and_enrichment.sql` em bancos 
 
 O teste integrado da migration exige uma instância PostgreSQL configurada e não foi
 executado neste ambiente.
+
+<!-- COMPROMISSO-GERAL-A-CASTILHO -->
+
+---
+
+## Compromisso Geral
+
+**Sempre na melhor prática. No caminho do bem maior.**
+
+**Ir até o fim sem sair do caminho, seja ele qual for.**
+
